@@ -1,0 +1,71 @@
+{
+  "info": {
+    "name": "Log Management Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password\"\n}"
+        },
+        "url": "{{base}}/api/auth/login"
+      }
+    },
+    {
+      "name": "Ingest JSON",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tenant\": \"demoA\",\n  \"source\": \"api\",\n  \"event_type\": \"app_login_failed\",\n  \"user\": \"alice\",\n  \"ip\": \"203.0.113.7\",\n  \"@timestamp\": \"2025-08-20T07:20:00Z\"\n}"
+        },
+        "url": "{{base}}/api/ingest"
+      }
+    },
+    {
+      "name": "Search Events",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{base}}/api/events/search?limit=50"
+      }
+    },
+    {
+      "name": "Dashboard Summary",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{base}}/api/dashboard/summary"
+      }
+    },
+    {
+      "name": "List Alerts",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{base}}/api/alerts"
+      }
+    },
+    {
+      "name": "Evaluate Alerts",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{base}}/api/alerts/evaluate"
+      }
+    }
+  ],
+  "variable": [
+    { "key": "base", "value": "http://localhost:8000" },
+    { "key": "token", "value": "" }
+  ]
+}
