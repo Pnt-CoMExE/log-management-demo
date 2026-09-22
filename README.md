@@ -1,17 +1,27 @@
 # Log Management Demo — Full-Stack Developer Intern Assignment
 
-Demo multi-source Log Management platform with normalize → store → search → dashboard → alert, packaged as **Appliance** (Docker Compose) and **SaaS** (HTTPS).
+Demo multi-source Log Management platform with normalize → store → search → dashboard → alert, packaged as **Appliance** (Docker Compose) and **SaaS** (HTTPS public URL).
 
-## Quick start
+## Links
+
+| Item | URL |
+|------|-----|
+| **GitHub** | https://github.com/Pnt-CoMExE/log-management-demo |
+| **SaaS demo (HTTPS)** | https://merely-gonna-charlotte-continuity.trycloudflare.com |
+| Local UI | http://localhost:3080 |
+| Local API docs | http://localhost:8000/docs |
+
+Login: `admin` / `password`  
+Viewers: `viewer` / `password` (tenant demoA), `viewer_b` / `password` (tenant demoB)
+
+> **SaaS note:** The public URL is a Cloudflare Quick Tunnel to this machine’s Docker stack. It stays up while `cloudflared` + `docker compose` are running. To recreate after restart: `.\scripts\start_saas_tunnel.ps1` (URL will change).
+
+## Quick start (Appliance)
 
 ```bash
 cp .env.example .env
 docker compose up --build -d
 ```
-
-- UI: http://localhost:3080  
-- API docs: http://localhost:8000/docs  
-- Login: `admin` / `password`
 
 ## Repository layout
 
@@ -43,7 +53,7 @@ docker-compose.yml
 | Dashboard | Top IP/User/EventType, timeline, filters |
 | Alert | Failed login burst (same IP, 5 min) |
 | AuthZ | Admin / Viewer + tenant isolation |
-| Appliance + SaaS | Compose + TLS proxy profile |
+| Appliance + SaaS | Compose + Cloudflare HTTPS tunnel |
 | Retention 7 days | Scheduled purge |
 
 ## Tests
