@@ -91,6 +91,7 @@ Then open http://localhost:3080 — see **[docs/TESTING.md](docs/TESTING.md)** f
 |-----|-------------|
 | [Purpose](docs/PURPOSE.md) | Why this website exists |
 | [How to test](docs/TESTING.md) | Step-by-step verification |
+| [Demo script (TH)](docs/DEMO_SCRIPT_TH.md) | Thai speaking script for video/interview |
 | [Architecture](docs/architecture.md) | Components & tenant model |
 | [Appliance deploy](docs/deploy/appliance.md) | Docker Compose on one host |
 | [SaaS on Render](docs/deploy/saas-render.md) | Persistent HTTPS |
