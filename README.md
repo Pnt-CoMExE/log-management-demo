@@ -1,20 +1,19 @@
 # Log Management Demo — Full-Stack Developer Intern Assignment
 
-Demo multi-source Log Management platform with normalize → store → search → dashboard → alert, packaged as **Appliance** (Docker Compose) and **SaaS** (HTTPS public URL).
+Demo multi-source Log Management platform with normalize → store → search → dashboard → alert, packaged as **Appliance** (Docker Compose) and **SaaS** (HTTPS).
 
 ## Links
 
 | Item | URL |
 |------|-----|
 | **GitHub** | https://github.com/Pnt-CoMExE/log-management-demo |
-| **SaaS demo (HTTPS)** | https://merely-gonna-charlotte-continuity.trycloudflare.com |
+| **SaaS (Cloudflare tunnel — live while PC on)** | https://merely-gonna-charlotte-continuity.trycloudflare.com |
+| **SaaS persistent (Render/Fly)** | see [docs/setup_saas_persistent.md](docs/setup_saas_persistent.md) |
 | Local UI | http://localhost:3080 |
 | Local API docs | http://localhost:8000/docs |
 
 Login: `admin` / `password`  
 Viewers: `viewer` / `password` (tenant demoA), `viewer_b` / `password` (tenant demoB)
-
-> **SaaS note:** The public URL is a Cloudflare Quick Tunnel to this machine’s Docker stack. It stays up while `cloudflared` + `docker compose` are running. To recreate after restart: `.\scripts\start_saas_tunnel.ps1` (URL will change).
 
 ## Quick start (Appliance)
 
@@ -22,6 +21,17 @@ Viewers: `viewer` / `password` (tenant demoA), `viewer_b` / `password` (tenant d
 cp .env.example .env
 docker compose up --build -d
 ```
+
+## Persistent SaaS (laptop can be off)
+
+Repo includes `Dockerfile.saas` + `render.yaml` + `fly.toml`.
+
+**Fastest path — Render Blueprint:**  
+https://dashboard.render.com/select-repo?type=blueprint  
+→ connect `Pnt-CoMExE/log-management-demo` → Deploy Blueprint  
+→ URL like `https://logmgr-saas.onrender.com`
+
+Details: [Persistent SaaS setup](docs/setup_saas_persistent.md)
 
 ## Repository layout
 
@@ -32,6 +42,9 @@ ingest/           UDP Syslog → API forwarder
 samples/          Example logs + send scripts
 docs/             Architecture & setup guides
 tests/            Unit tests (normalize)
+Dockerfile.saas   Single-image SaaS (UI + API)
+render.yaml       Render Blueprint
+fly.toml          Fly.io config
 docker-compose.yml
 ```
 
@@ -39,7 +52,8 @@ docker-compose.yml
 
 - [Architecture](docs/architecture.md)
 - [Appliance setup](docs/setup_appliance.md)
-- [SaaS setup](docs/setup_saas.md)
+- [SaaS tunnel setup](docs/setup_saas.md)
+- [Persistent SaaS (Render/Fly)](docs/setup_saas_persistent.md)
 - [Postman collection](docs/postman_collection.json)
 
 ## Features mapped to assignment
@@ -53,7 +67,7 @@ docker-compose.yml
 | Dashboard | Top IP/User/EventType, timeline, filters |
 | Alert | Failed login burst (same IP, 5 min) |
 | AuthZ | Admin / Viewer + tenant isolation |
-| Appliance + SaaS | Compose + Cloudflare HTTPS tunnel |
+| Appliance + SaaS | Compose + Cloudflare tunnel / Render / Fly |
 | Retention 7 days | Scheduled purge |
 
 ## Tests

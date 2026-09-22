@@ -1,9 +1,13 @@
 import logging
+import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api import alerts, auth, events, ingest
 from app.core.config import get_settings
@@ -76,3 +80,17 @@ def health() -> HealthResponse:
 
 # Alias for assignment sample: POST /ingest
 app.include_router(ingest.router, prefix="", include_in_schema=False)
+
+# Production SaaS: serve built React UI from the same origin
+_static = Path(settings.static_dir or os.getenv("STATIC_DIR", "")).expanduser()
+if _static.is_dir() and (_static / "index.html").exists():
+    assets = _static / "assets"
+    if assets.is_dir():
+        app.mount("/assets", StaticFiles(directory=assets), name="assets")
+
+    @app.get("/{full_path:path}")
+    def spa_fallback(full_path: str) -> FileResponse:
+        candidate = _static / full_path
+        if full_path and candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(_static / "index.html")

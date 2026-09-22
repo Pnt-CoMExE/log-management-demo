@@ -1,0 +1,40 @@
+# Render Blueprint — persistent HTTPS SaaS (laptop can be off)
+# Deploy: https://dashboard.render.com/select-repo?type=blueprint
+# Repo: https://github.com/Pnt-CoMExE/log-management-demo
+
+services:
+  - type: web
+    name: logmgr-saas
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile.saas
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: RETENTION_DAYS
+        value: "7"
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        value: password
+      - key: VIEWER_USERNAME
+        value: viewer
+      - key: VIEWER_PASSWORD
+        value: password
+      - key: STATIC_DIR
+        value: /app/static
+      - key: DATABASE_URL
+        fromDatabase:
+          name: logmgr-db
+          property: connectionString
+
+databases:
+  - name: logmgr-db
+    plan: free
+    region: singapore
+    postgresMajorVersion: "16"

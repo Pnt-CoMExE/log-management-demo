@@ -1,0 +1,35 @@
+# fly.toml app configuration file generated for logmgr-saas
+app = 'logmgr-saas-pnt'
+primary_region = 'sin'
+
+[build]
+  dockerfile = 'Dockerfile.saas'
+
+[env]
+  STATIC_DIR = '/app/static'
+  RETENTION_DAYS = '7'
+  CORS_ORIGINS = '*'
+  ADMIN_USERNAME = 'admin'
+  ADMIN_PASSWORD = 'password'
+  VIEWER_USERNAME = 'viewer'
+  VIEWER_PASSWORD = 'password'
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+  [[http_service.checks]]
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '30s'
+    method = 'GET'
+    path = '/api/health'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
