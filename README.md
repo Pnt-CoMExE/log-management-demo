@@ -7,8 +7,7 @@ Demo multi-source Log Management platform with normalize → store → search �
 | Item | URL |
 |------|-----|
 | **GitHub** | https://github.com/Pnt-CoMExE/log-management-demo |
-| **SaaS (Cloudflare tunnel — live while PC on)** | https://merely-gonna-charlotte-continuity.trycloudflare.com |
-| **SaaS persistent (Render/Fly)** | see [docs/setup_saas_persistent.md](docs/setup_saas_persistent.md) |
+| **SaaS (Render HTTPS — persistent)** | https://logmgr-saas.onrender.com |
 | Local UI | http://localhost:3080 |
 | Local API docs | http://localhost:8000/docs |
 
@@ -24,14 +23,10 @@ docker compose up --build -d
 
 ## Persistent SaaS (laptop can be off)
 
-Repo includes `Dockerfile.saas` + `render.yaml` + `fly.toml`.
+**Live:** https://logmgr-saas.onrender.com  
 
-**Fastest path — Render Blueprint:**  
-https://dashboard.render.com/select-repo?type=blueprint  
-→ connect `Pnt-CoMExE/log-management-demo` → Deploy Blueprint  
-→ URL like `https://logmgr-saas.onrender.com`
-
-Details: [Persistent SaaS setup](docs/setup_saas_persistent.md)
+Deployed via Render Blueprint (`render.yaml` + `Dockerfile.saas`).  
+Details / redeploy: [Persistent SaaS setup](docs/setup_saas_persistent.md)
 
 ## Repository layout
 

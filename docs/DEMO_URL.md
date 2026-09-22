@@ -1,8 +1,11 @@
 # Demo URL (live)
 
-- **Public SaaS (HTTPS):** https://merely-gonna-charlotte-continuity.trycloudflare.com
+## Persistent SaaS (Render — stays up when laptop is off)
+- **URL:** https://logmgr-saas.onrender.com
 - **GitHub:** https://github.com/Pnt-CoMExE/log-management-demo
 - **Accounts:** `admin` / `password` · `viewer` / `password` · `viewer_b` / `password`
 
-Started via Cloudflare Quick Tunnel → local Docker UI on port 3080.
-Keep `docker compose` and `cloudflared` running while examiners test.
+> Free Render instances may sleep after idle (~50s cold start on first hit).
+
+## Temporary tunnel (optional, local Docker)
+- Cloudflare Quick Tunnel only while PC + `cloudflared` are running.

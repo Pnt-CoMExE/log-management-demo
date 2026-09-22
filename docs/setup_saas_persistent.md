@@ -8,7 +8,7 @@ This project can run as a **single container** (`Dockerfile.saas`) that serves b
 2. Connect GitHub and select `Pnt-CoMExE/log-management-demo`  
 3. Confirm Blueprint from `render.yaml` → **Deploy Blueprint**  
 4. Wait for `logmgr-saas` + `logmgr-db` to become Live  
-5. Public URL will look like: `https://logmgr-saas.onrender.com`
+5. Public URL: **https://logmgr-saas.onrender.com** (already deployed)
 
 Login: `admin` / `password`
 
