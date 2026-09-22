@@ -1,10 +1,12 @@
-# Frontend
+# Frontend (React + Vite)
 
-React + Vite operations console.
+Operations console: dashboard, events, alerts, ingest.
+
+See root [README](../README.md).
 
 ```bash
 npm install
 npm run dev
 ```
 
-Proxies `/api` to `http://localhost:8000` in development.
+Dev server proxies `/api` to `http://localhost:8000`.

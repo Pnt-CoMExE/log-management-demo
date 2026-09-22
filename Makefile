@@ -16,7 +16,7 @@ saas-up:
 	docker compose --profile saas up --build -d
 
 test:
-	cd backend && python -m pytest ../tests -q
+	cd backend && PYTHONPATH=. python -m pytest ../tests -q
 
 backend-install:
 	cd backend && pip install -r requirements.txt

@@ -1,11 +1,11 @@
-# Backend
+# Backend (FastAPI)
 
-FastAPI service for auth, ingest, search, dashboard, and alerts.
+Auth, ingest, search, dashboard aggregates, alerts, retention.
+
+See root [README](../README.md) and [docs/TESTING.md](../docs/TESTING.md).
 
 ```bash
 pip install -r requirements.txt
-export DATABASE_URL=postgresql+psycopg2://logmgr:logmgr@localhost:5432/logmgr
-uvicorn app.main:app --reload --app-dir .
+# with Postgres from docker compose
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
-
-Or run via Docker Compose from repo root.
